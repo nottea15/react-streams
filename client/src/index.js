@@ -6,7 +6,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import App from "./components/App";
 import reducers from "./reducers";
 
-const store = configureStore({ reducer: reducers });
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = configureStore({
+  reducer: reducers,
+  // middleware: [composeEnhancers(applyMiddleware())],
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
