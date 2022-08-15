@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Router, Route, Routes } from "react-router-dom";
 // import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useState, useLayoutEffect } from "react";
 
 import Header from "./Header";
 import StreamCreate from "./streams/StreamCreate";
@@ -8,7 +9,25 @@ import StreamDelete from "./streams/StreamDelete";
 import StreamEdit from "./streams/StreamEdit";
 import StreamList from "./streams/StreamList";
 import StreamShow from "./streams/StreamShow";
+import history from "../history";
 
+const CustomRouter = ({ history, ...props }) => {
+  const [state, setState] = useState({
+    action: history.action,
+    location: history.location,
+  });
+
+  useLayoutEffect(() => history.listen(setState), [history]);
+
+  return (
+    <Router
+      {...props}
+      location={state.location}
+      navigationType={state.action}
+      navigator={history}
+    />
+  );
+};
 const App = () => {
   // gapi.load("client:auth2", () => {
   //   gapi.client.init({
@@ -19,16 +38,16 @@ const App = () => {
   return (
     // <GoogleOAuthProvider clientId="243052285267-01f7ndaqfitc2m7isfee2phd37mnlbam.apps.googleusercontent.com">
     <div className="ui container">
-      <BrowserRouter>
+      <CustomRouter history={history}>
         <Header />
         <Routes>
           <Route path="/" element={<StreamList />} />
           <Route path="/streams/create" element={<StreamCreate />} />
-          <Route path="/streams/edit" element={<StreamEdit />} />
-          <Route path="/streams/delete" element={<StreamDelete />} />
-          <Route path="/streams/show" element={<StreamShow />} />
+          <Route path="/streams/edit/:id" element={<StreamEdit />} />
+          <Route path="/streams/delete/:id" element={<StreamDelete />} />
+          <Route path="/str eams/show/:id" element={<StreamShow />} />
         </Routes>
-      </BrowserRouter>
+      </CustomRouter>
     </div>
     // </GoogleOAuthProvider>
   );
