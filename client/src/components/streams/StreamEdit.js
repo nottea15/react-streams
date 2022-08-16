@@ -1,21 +1,22 @@
 import React from "react";
 import { useEffect } from "react";
-import { connect, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchStream, editStream } from "../../actions";
 import StreamForm from "./StreamForm";
 
-const StreamEdit = ({ fetchStream, editStream }) => {
+const StreamEdit = () => {
   const id = useParams();
 
   const onSubmit = (formValues) => {
-    editStream(id.id, formValues);
+    dispatch(editStream(id.id, formValues));
   };
 
   useEffect(() => {
-    fetchStream(id.id);
+    dispatch(fetchStream(id.id));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const dispatch = useDispatch();
   const stream = useSelector((state) => state.streams[id.id]);
 
   if (!stream) {
@@ -32,4 +33,4 @@ const StreamEdit = ({ fetchStream, editStream }) => {
   );
 };
 
-export default connect(null, { fetchStream, editStream })(StreamEdit);
+export default StreamEdit;

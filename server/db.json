@@ -12,15 +12,9 @@
     },
     {
       "title": "My stream Id",
-      "description": "this was made with ID",
+      "description": "this was made with ID 2",
       "userId": "109590675806942547647",
       "id": 3
-    },
-    {
-      "title": "Edit test",
-      "description": "edit test is going on again",
-      "userId": "109590675806942547647",
-      "id": 4
     }
   ]
 }
