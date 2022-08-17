@@ -45,7 +45,7 @@ const App = () => {
           <Route path="/streams/create" element={<StreamCreate />} />
           <Route path="/streams/edit/:id" element={<StreamEdit />} />
           <Route path="/streams/delete/:id" element={<StreamDelete />} />
-          <Route path="/str eams/show/:id" element={<StreamShow />} />
+          <Route path="/streams/:id" element={<StreamShow />} />
         </Routes>
       </CustomRouter>
     </div>

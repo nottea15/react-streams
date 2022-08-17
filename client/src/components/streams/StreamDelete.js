@@ -11,11 +11,12 @@ const StreamDelete = () => {
 
   useEffect(() => {
     dispatch(fetchStream(id.id));
-    console.log(stream);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const stream = useSelector((state) => state.streams[id.id]);
   const dispatch = useDispatch();
+  const stream = useSelector((state) => state.streams[id.id]);
+  const streams = useSelector((state) => state.streams);
+  console.log(streams);
 
   const actions = (
     <React.Fragment>
@@ -30,7 +31,9 @@ const StreamDelete = () => {
       </button>
     </React.Fragment>
   );
-
+  if (!stream) {
+    return <div className="ui active loader"></div>;
+  }
   return (
     <Modal
       title="Delete Stream"
